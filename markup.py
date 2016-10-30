@@ -69,6 +69,7 @@ class BasicTestPaser(Parser):
         self.addFilter(r'(http://[\.a-zA-Z/]+)','url')
         self.addFilter(r'([\.a-zA-Z\d]+@[\.\da-zA-Z]+[a-zA-Z]+)','email')
         self.addFilter(r'[\\]([^a-zA-A0-9])', 'transform')
+
 handler = HTMLHandler()
 parser = BasicTestPaser(handler)
 #with  open('test_input.txt','r+') as file:
