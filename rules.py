@@ -32,13 +32,14 @@ class TitleRule(Rule):
         self.type = 'title'
         if block[0] == '#' and block[1] != '#':
 
-            return not '\n' in block and len(block) <= 70 and not block[-1] == ':', self.type
+            return not '\n' in block and len(block) <= 50 and not block[-1] == ':', self.type
         
         return False, self.type
     
 class ListItemRule(Rule):
     type = 'listitem'
     def condition(self, block):
+        self.ListItemRule()
         return block[0] == '-', self.type
     def action(self, block, handler):
         handler.start(self.type)
@@ -63,6 +64,14 @@ class ListRule(ListItemRule):
     
 class ParagraphRule(Rule):
     type = 'paragraph'
-    def condition(self, block):
+    def condition(self, block):        
         if block: return  True, self.type
 
+class CommentRule(Rule):
+    type = 'comment'
+    def condition(self, block):
+        if block[0:2] == '> ':
+            return True, self.type
+        return False, self.type
+
+        

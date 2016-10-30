@@ -12,6 +12,7 @@ def blocks(file):
         if line.strip():
             block.append(line)
         elif block:
+           # yield block.strip()
             yield ''.join(block).strip()
             block = []
             

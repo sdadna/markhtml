@@ -6,7 +6,24 @@
 
     ./python_html.sh [file or directory]
 
-##example
+###example
 
     ./python_html.sh readme
     
+##instruction
+
+>  # 一级标题
+>  ## 二级标题
+>  ### 三级标题
+>  #### 四级标题
+>  ##### 五级标题
+  
+>  \*...\*  匹配斜体
+>  \*\*...\*\* 加粗
+>  \> 注释
+>  \\ 转义符号
+
+>  http://xxx    网址
+>  xxx@xx.xx    邮件地址
+>  
+

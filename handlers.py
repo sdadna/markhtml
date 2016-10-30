@@ -74,6 +74,12 @@ class HTMLHandler(Handler):
     def end_paragraph(self):
         print "</p>"
     
+    def start_comment(self):
+        print "<blockquot>"
+
+    def end_comment(self):
+        print "</blockquot>"
+
     def end_list(self):
         print "</ul>"
 
@@ -83,9 +89,10 @@ class HTMLHandler(Handler):
     def end_listitem(self):
         print "</li>"
 
+    
     def sub_emphasis(self, match):
-        return "<em>%s<em>" % match.group(1)
-
+        return "<em>%s</em>" % match.group(1)
+    
     def sub_blod(self, match):
         return "<B>%s</B>" % match.group(1)
     
@@ -94,6 +101,9 @@ class HTMLHandler(Handler):
 
     def sub_email(self, match):
         return '<a href="mailto:%s">%s</a>' %(match.group(1), match.group(1))
+
+    def sub_transform(self, match):
+        return '%s' %match.group(1)
 
     def feed(self, data):
         print data

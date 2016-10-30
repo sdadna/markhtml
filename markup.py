@@ -33,6 +33,9 @@ class Parser:
         elif type == 'heading4':
             block = block[5:]
 
+        if type == 'comment':
+            block = block[2:]
+
         return block
 
     def parse(self, file):
@@ -53,17 +56,19 @@ class Parser:
 class BasicTestPaser(Parser):
     def __init__(self, handler,):
         Parser.__init__(self, handler)
+        self.addRule(CommentRule())
         self.addRule(ListRule())
         self.addRule(ListItemRule())
         self.addRule(TitleRule())
         self.addRule(HeadingRule())
         self.addRule(ParagraphRule())
+        
 
-        self.addFilter(r'\*{2,}(.+?)\*{2,}', 'blod')
-        self.addFilter(r'\*(.+?)\*', 'emphasis')
+        self.addFilter(r'\*{2}([^*]+)\*{2}', 'blod')
+        self.addFilter(r'[\s]\*([^*]+)\*[\s]', 'emphasis')
         self.addFilter(r'(http://[\.a-zA-Z/]+)','url')
         self.addFilter(r'([\.a-zA-Z\d]+@[\.\da-zA-Z]+[a-zA-Z]+)','email')
-
+        self.addFilter(r'[\\]([^a-zA-A0-9])', 'transform')
 handler = HTMLHandler()
 parser = BasicTestPaser(handler)
 #with  open('test_input.txt','r+') as file:
