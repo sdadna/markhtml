@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import pdb
+
 class Rule:
     
     def action(self, block, handler):
@@ -39,13 +41,13 @@ class TitleRule(Rule):
 class ListItemRule(Rule):
     type = 'listitem'
     def condition(self, block):
-        self.ListItemRule()
         return block[0] == '-', self.type
     def action(self, block, handler):
         handler.start(self.type)
-        handler.feed(block[1:].strip())
+        handler.feed(block.strip('-'))
         handler.end(self.type)
         return True
+
 
 class ListRule(ListItemRule):
     type = 'list'
@@ -61,6 +63,36 @@ class ListRule(ListItemRule):
             self.inside = False
         return False
 
+class MultiListRule(Rule):
+    type = 'multilist'
+    num = 0
+    def compute_symbol(self, block):
+        num = 0
+        for x in block:
+            if x == '-': 
+                num += 1
+            else:
+                break
+        return num
+
+    def condition(self, block):
+        self.num = self.compute_symbol(block)
+        if self.num < 2:
+            self.num = 0
+            
+        return self.num >= 2, self.type
+
+    def action(self, block, handler):
+        for i in range(self.num - 1):
+            handler.start('list')
+       
+        ListItemRule().action(block, handler)
+
+        for i in range(self.num - 1):
+            handler.end('list')
+
+        self.num = 0
+        return True
     
 class ParagraphRule(Rule):
     type = 'paragraph'

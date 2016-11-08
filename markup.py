@@ -57,6 +57,7 @@ class BasicTestPaser(Parser):
     def __init__(self, handler,):
         Parser.__init__(self, handler)
         self.addRule(CommentRule())
+        self.addRule(MultiListRule())
         self.addRule(ListRule())
         self.addRule(ListItemRule())
         self.addRule(TitleRule())
