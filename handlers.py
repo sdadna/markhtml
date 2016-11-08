@@ -68,6 +68,9 @@ class HTMLHandler(Handler):
     def start_list(self):
         print "<ul>"
 
+    def end_list(self):
+        print "</ul>"
+
     def start_paragraph(self):
         print "<p>"
 
@@ -79,9 +82,6 @@ class HTMLHandler(Handler):
 
     def end_comment(self):
         print "</blockquot>"
-
-    def end_list(self):
-        print "</ul>"
 
     def start_listitem(self):
         print "<li>"
